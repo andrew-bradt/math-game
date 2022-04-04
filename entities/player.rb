@@ -19,7 +19,7 @@ class Player
   end
 
   def score
-    "#{short_name}: #{lives}/3"
+    "#{lives}/3"
   end
 
   protected 
