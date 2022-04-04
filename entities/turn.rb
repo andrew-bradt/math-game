@@ -4,11 +4,14 @@ class Turn
   end
 
   def begin(question)
-    puts 'PLACEHOLDER FOR BEGIN'
+    active_player = players[0]
+    puts "----- NEW TURN -----"
+    is_correct = question.ask(active_player.name)
+    handle_answer(is_correct, active_player)
+    display_score
   end
   
-  # private
-  
+  private
   attr_reader :players
 
   def handle_answer(is_correct, player)
