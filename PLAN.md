@@ -36,46 +36,40 @@
       
 - Turn
   - Constructor
-    - Arguments - active_player, inactive_player, question
+    - Arguments - players - array of player objects
     - Instance Variables 
-      - @active_player = Player - read
-      - @inactive_player = Player - read
+      - @players
+      
     - Behaviour
-      - start
+      - begin
         - puts --- NEW TURN ---
-        - invoke question.ask
-      - end
-        - Arguments - result (from question)
-        - invoke display_result
-        - if result is false, active_player.reduce_lives
-        - 
-      - display_result
-        - Arguments - result
-        - if true - puts @name YES! you are correct
-        - if false - puts @name Seriously? No!
-        - puts @active_player.score vs. @inactive_player.score
+        - invoke handle_answer
+        - invoke display_score
+      
+      - handle_answer (correct?)
+        - active_player = players[0]
+        - if correct? is true, puts active_player.name YES! You are correct.
+        - if correct? is false, puts active_player.name Seriously? No! and invoke active_player.    reduce_lives
+
+      - display_score
+        - score = ""
+        - for each player (except for last), append player.score and vs. 
+        - puts score
 
 - Question
-  - Constructor
-    - Arguments - turn (Turn object)
-    - Instance Variables
-      - @turn - turn
-      - @int1 - random num 1-20 - private
-      - @int2 - random num 1-20 - private
+  - Constructor - none
+  - Constants 
+    - INT_1 rand(1..20)
+    - INT_2 rand(1..20)
   - Behaviour
-    - ask
-      - make prompt - question made by injecting @int1 and @int2 into template string
-      - prints question to console
-      - invoke get_input
-    - get_input
-      - wait for user input
-      - parse to number
-      - invoke correct?
-    - correct?
-      - Arguments - answer (int)
-      - result = check if answer is equal to @int1 + @int2
-      - invoke turn.end and pass result as arg
-    
+    - ask - public
+      - invoke correct? with prompt and return result
+    - correct? - private
+      - Arguments - answer
+      - return answer == INT_1 + INT_2
+    - prompt - private
+      - prints question string
+      - get user input, convert to int, return
 - Player
   - Constructor
     - Arguments - name
