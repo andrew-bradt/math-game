@@ -21,7 +21,12 @@ class Turn
   end
 
   def display_score
-    puts 'PLACEHOLDER FOR DISPLAY_SCORE'
+    score = ""
+    players.each_with_index do |player, i|
+      player_score = "#{player.short_name}: #{player.score}"
+      score += (i != players.length - 1) ? "#{player_score} vs. " : player_score
+    end
+    puts score
   end
   
 end
