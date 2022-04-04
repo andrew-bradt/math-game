@@ -92,7 +92,7 @@
       - Iterate over @players 
         - invoking has_lives? for a player.  if false, early return true
         - return false if no early return
-    - loop
+    - play
       - until game_over?
         - current_turn = Turn.new(@players)
         - current_turn.begin

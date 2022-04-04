@@ -1,3 +1,5 @@
+require './entities/turn.rb'
+
 class Game
   def initialize(players)
     @players = players
@@ -15,7 +17,10 @@ class Game
   end
 
   def play
-    puts 'PLACEHOLDER FOR play'
+    until game_over?
+      turn = Turn.new(players)
+      turn.begin
+    end
   end
 
   def end_game

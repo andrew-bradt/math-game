@@ -1,10 +1,14 @@
 class Turn
+  @@active_player_index = -1
+
   def initialize (players)
     @players = players
+    @question = Question.new
+    @@active_player_index = (@@active_player_index + 1) % players.length
   end
 
   def begin(question)
-    active_player = players[0]
+    active_player = players[@@active_player_index]
     puts "----- NEW TURN -----"
     is_correct = question.ask(active_player.name)
     handle_answer(is_correct, active_player)
