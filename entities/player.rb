@@ -14,8 +14,11 @@ class Player
     self.lives -= 1
   end
 
+  def short_name
+    name[0] + name[name.length - 1]
+  end
+
   def score
-    short_name = name[0] + name[name.length - 1]
     "#{short_name}: #{lives}/3"
   end
 
