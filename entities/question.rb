@@ -1,20 +1,23 @@
 class Question
-  INT_1 = rand(1..20)
-  INT_2 = rand(1..20)
+  def initialize
+    @int_1 = rand(1..20)
+    @int_2 = rand(1..20)
+  end
 
   def ask(name)
     correct? prompt(name)
   end
   
   private
+  attr_reader :int_1, :int_2
   def prompt(name)
-    question = "#{name}, What does #{INT_1} + #{INT_2} equal?"
+    question = "#{name}: What does #{int_1} + #{int_2} equal?"
     puts question
     print "> "
     $stdin.gets.chomp.to_i
   end
 
   def correct? (answer)
-    answer == INT_1 + INT_2
+    answer == int_1 + int_2
   end
 end

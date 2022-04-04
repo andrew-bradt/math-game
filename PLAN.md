@@ -24,64 +24,8 @@
 # PLAN
 
 ## Entities
-- Game
-    - Constructor (array of player objects)
-    - Instance Variables
-      - @players = []
+- Player, Question, Turn, Game
 
-    - Behaviour
-      - game_over?
-        - Iterate over @players 
-          - invoking has_lives? for a player.  if false, early return true
-          - return false if no early return
-      - loop
-        - until game_over?
-          - current_turn = Turn.new(@players)
-          - rotate players
-        - invoke end_game
-      - end_game
-        - winner = iterate over players and find player with most lives
-        - puts "winner.name wins with a score of winner.score"
-
-      
-- Turn
-  - Constructor
-    - Arguments - players - array of player objects
-    - Instance Variables 
-      - @players
-
-    - Behaviour
-      - begin(question obj)
-        - active_player = players[0]
-        - puts --- NEW TURN ---
-        - invoke handle_answer with question.ask()
-        - invoke display_score
-      
-      - handle_answer (correct?, active_player)
-        - if correct? is true, puts active_player.name YES! You are correct.
-        - if correct? is false, puts active_player.name Seriously? No! and invoke active_player.    reduce_lives
-
-      - display_score
-        - score = ""
-        - for each player (except for last), append player.short_name: player.score and vs. to score
-        - puts score
-
-- Question
-  - Constructor - none
-  - Constants 
-    - INT_1 rand(1..20)
-    - INT_2 rand(1..20)
-  - Behaviour
-    - ask - public
-      - Arguments: Name
-      - invoke correct? with prompt(name) and return result
-    - correct? - private
-      - Arguments - answer
-      - return answer == INT_1 + INT_2
-    - prompt - private
-      - Arguments: name
-      - format question string with name, INT_1 and INT_2
-      - get user input, convert to int, return
 - Player
   - Constructor
     - Arguments - name
@@ -97,6 +41,66 @@
       - name[0] + name[name.length - 1]
     - score
       - @lives/3
+
+- Question
+  - Constructor
+    - Arguments - None
+    - Instance Variables:
+      - @int_1 rand(1..20)
+      - @int_2 rand(1..20)
+  - Behaviour
+    - ask - public
+      - Arguments: Name
+      - invoke correct? with prompt(name) and return result
+    - correct? - private
+      - Arguments - answer
+      - return answer == INT_1 + INT_2
+    - prompt - private
+      - Arguments: name
+      - format question string with name, INT_1 and INT_2
+      - get user input, convert to int, return
+
+- Turn
+  - Constructor
+    - Arguments - players - array of player objects
+    - Instance Variables 
+      - @players
+
+  - Behaviour
+    - begin(question obj) - public
+      - active_player = players[0]
+      - puts --- NEW TURN ---
+      - invoke handle_answer with question.ask()
+      - invoke display_score
+    
+    - handle_answer (correct?, active_player) - private
+      - if correct? is true, puts active_player.name YES! You are correct.
+      - if correct? is false, puts active_player.name Seriously? No! and invoke active_player.reduce_lives
+
+    - display_score - private
+      - score = ""
+      - for each player (except for last), append player.short_name: player.score and vs. to score
+      - puts score
+
+- Game
+  - Constructor (array of player objects)
+  - Instance Variables
+    - @players = []
+
+  - Behaviour
+    - game_over?
+      - Iterate over @players 
+        - invoking has_lives? for a player.  if false, early return true
+        - return false if no early return
+    - loop
+      - until game_over?
+        - current_turn = Turn.new(@players)
+        - current_turn.begin
+        - rotate players
+      - invoke end_game
+    - end_game
+      - winner = iterate over players and find player with most lives
+      - puts "winner.name wins with a score of winner.score"
 
 
 
