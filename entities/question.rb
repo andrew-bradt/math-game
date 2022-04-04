@@ -3,12 +3,18 @@ class Question
   INT_2 = rand(1..20)
 
   def ask
+    correct? prompt
+  end
+  
+  private
+  def prompt
     question = "What is #{INT_1} + #{INT_2}?"
     puts question
-    get_input
+    print "> "
+    $stdin.gets.chomp.to_i
   end
 
-  def get_input
-    puts 'GET_INPUT PLACE HOLDER'
+  def correct? (answer)
+    answer == INT_1 + INT_2
   end
 end
